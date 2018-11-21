@@ -1,9 +1,17 @@
 import socket
 import sys
-import cmddb
-# Create a TCP/IP socket
+import os
+
+def power(cmd):
+    if cmd == "shutdown":
+        os.system("shutdown -s now")
+    elif cmd == "restart":
+        os.system("shutdown -r now")
+
+def print(text):
+    print(text)
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# Bind the socket to the port
 server_address = ('0.0.0.0', 5566)
 sock.bind(server_address)
 sock.listen(1)
@@ -14,7 +22,7 @@ while True:
     try:
         while True:
             data = connection.recv(BUFFERSIZE)
-            cmddb.power(data)
+            power(data)
             if data:
                 connection.sendall(data)
             else:
