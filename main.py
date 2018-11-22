@@ -1,15 +1,6 @@
 import socket
 import sys
-import os
-
-def power(cmd):
-    if cmd == "shutdown":
-        os.system("shutdown -s now")
-    elif cmd == "restart":
-        os.system("shutdown -r now")
-
-def print(text):
-    print(text)
+import cmds
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('0.0.0.0', 5566)
@@ -22,7 +13,8 @@ while True:
     try:
         while True:
             data = connection.recv(BUFFERSIZE)
-            power(data)
+            function=getattr(cmds,data)
+            function(arg1)
             if data:
                 connection.sendall(data)
             else:
