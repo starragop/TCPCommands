@@ -10,7 +10,7 @@ print('~~CONNECTED~~')
 while True:
     userinput = input('->')
     if userinput != '':
-        s.send(command)
+        s.send(userinput)
         data = s.recv(BUFFERSIZE)
         if data == True:
             print(data)
